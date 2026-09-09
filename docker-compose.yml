@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dose_registry
+      POSTGRES_USER: dose_registry
+      POSTGRES_PASSWORD: dose_registry
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - dose_registry_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dose_registry -d dose_registry"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./src/DoseRegistry.Api
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8090:8080"
+
+  # Optional: run `dotnet build` / `dotnet test` without installing the SDK
+  # locally, e.g.:
+  #   docker compose run --rm sdk test DoseRegistry.Api.Tests/DoseRegistry.Api.Tests.csproj
+  sdk:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    profiles: ["tools"]
+    working_dir: /src
+    volumes:
+      - ./src:/src
+    entrypoint: ["dotnet"]
+
+volumes:
+  dose_registry_pgdata:

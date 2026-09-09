@@ -1,0 +1,18 @@
+{
+  "Database": {
+    "Connection": {
+      "Host": "db",
+      "Port": 5432,
+      "Database": "dose_registry",
+      "Username": "dose_registry",
+      "Password": "dose_registry"
+    },
+    "DbProvider": "PostgreSQL"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
