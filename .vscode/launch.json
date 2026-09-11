@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Dose Registry API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/DoseRegistry.Api/bin/Debug/net8.0/DoseRegistry.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/DoseRegistry.Api",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_URLS": "http://0.0.0.0:8080"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "http://localhost:8090/swagger"
+      }
+    }
+  ]
+}

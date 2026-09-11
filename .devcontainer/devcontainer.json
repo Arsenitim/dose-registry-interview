@@ -1,0 +1,23 @@
+{
+  "name": "Dose Registry",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "docker-compose.devcontainer.yml"
+  ],
+  "service": "dev",
+  "runServices": [
+    "db",
+    "dev"
+  ],
+  "workspaceFolder": "/workspaces/dose-registry-interview",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "vscode",
+  "postCreateCommand": "dotnet restore DoseRegistry.sln",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp"
+      ]
+    }
+  }
+}
