@@ -15,7 +15,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "8090:8080"
+      - "8090:8090"
     environment:
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
       DOTNET_NOLOGO: "1"

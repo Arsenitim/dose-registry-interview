@@ -40,7 +40,7 @@
       ],
       "options": {
         "env": {
-          "ASPNETCORE_URLS": "http://0.0.0.0:8080"
+          "ASPNETCORE_URLS": "http://0.0.0.0:8090"
         }
       },
       "problemMatcher": "$msCompile"
