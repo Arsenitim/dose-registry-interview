@@ -44,6 +44,33 @@ terminal:
 dotnet test DoseRegistry.sln
 ```
 
+### Inspect the database in VS Code
+
+The development container includes Microsoft's **PostgreSQL** VS Code
+extension. Open its elephant icon in the Activity Bar, add a connection, and
+use these values:
+
+| Setting | Value |
+|---|---|
+| Host | `db` |
+| Port | `5432` |
+| Database | `dose_registry` |
+| Username | `dose_registry` |
+| Password | `dose_registry` |
+| SSL | Disabled |
+
+The PostgreSQL view can browse tables and other database objects, run queries,
+and visualize the schema. The extension runs inside the development container;
+no PostgreSQL client or database administration application needs to be
+installed on the host.
+
+From a host terminal, you can also open a database shell using the `psql`
+client already included in the PostgreSQL container:
+
+```bash
+docker compose exec db psql -U dose_registry -d dose_registry
+```
+
 The first start downloads the required container images and may take several
 minutes. Later starts reuse them. If startup fails, confirm that
 `docker version` reports both a client and server and that host ports `5432`
