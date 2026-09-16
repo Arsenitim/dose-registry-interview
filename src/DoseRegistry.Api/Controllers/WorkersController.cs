@@ -49,12 +49,7 @@ public class WorkersController : ControllerBase
             PersonalNumber = dto.PersonalNumber.Trim()
         };
 
-        if (string.IsNullOrEmpty(worker.FullName))
-        {
-            return BadRequest(new { error = "The name is empty." });
-        }
-
-        bool exists = await _db.Workers.AnyAsync(w => w.PersonalNumber.ToLowerInvariant() == dto.PersonalNumber.ToLowerInvariant());
+        bool exists = await _db.Workers.AnyAsync(w => w.PersonalNumber.ToLower() == dto.PersonalNumber.ToLower());
         if (exists)
         {
             return Conflict(new { error = $"The worker with the personal number '{dto.PersonalNumber}' already exists." });
