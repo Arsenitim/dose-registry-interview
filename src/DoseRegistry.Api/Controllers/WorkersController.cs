@@ -49,10 +49,10 @@ public class WorkersController : ControllerBase
             PersonalNumber = dto.PersonalNumber.Trim()
         };
 
-        bool exists = await _db.Workers.AnyAsync(w => w.PersonalNumber.ToLower() == dto.PersonalNumber.ToLower());
+        bool exists = await _db.Workers.AnyAsync(w => w.PersonalNumber.ToLower() == worker.PersonalNumber.ToLower());
         if (exists)
         {
-            return Conflict(new { error = $"The worker with the personal number '{dto.PersonalNumber}' already exists." });
+            return Conflict(new { error = $"The worker with the personal number '{worker.PersonalNumber}' already exists." });
         }
 
         _db.Workers.Add(worker);
