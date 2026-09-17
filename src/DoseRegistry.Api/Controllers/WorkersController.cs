@@ -45,9 +45,15 @@ public class WorkersController : ControllerBase
     {
         var worker = new Worker
         {
-            FullName = dto.FullName,
-            PersonalNumber = dto.PersonalNumber
+            FullName = dto.FullName.Trim(),
+            PersonalNumber = dto.PersonalNumber.Trim()
         };
+
+        bool exists = await _db.Workers.AnyAsync(w => w.PersonalNumber.ToLower() == worker.PersonalNumber.ToLower());
+        if (exists)
+        {
+            return Conflict(new { error = $"The worker with the personal number '{worker.PersonalNumber}' already exists." });
+        }
 
         _db.Workers.Add(worker);
         await _db.SaveChangesAsync();
